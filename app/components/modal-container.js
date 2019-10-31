@@ -1,0 +1,1 @@
+export { default } from 'checkpoint-modal/components/modal-container';

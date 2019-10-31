@@ -1,0 +1,6 @@
+{{#each modalInstances as |modalInstance|}}
+    {{modal-instance 
+        modalInstance.name
+        modalInstance.options
+        on-close=(action 'modalClosed' modalInstance)}}
+{{/each}}
