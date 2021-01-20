@@ -10,16 +10,21 @@ export default Component.extend({
     layout,
 
     modalName: null,
+    uuid: null,
 
     isModal: computed('modalName', function() {
         let owner = getOwner(this);
         let f = owner.factoryFor('component:'+this.modalName);
-        return f.class.PrototypeMixin.mixins.includes(Overlay);
+        if (f.class.PrototypeMixin && f.class.PrototypeMixin.mixins) {
+            return f.class.PrototypeMixin.mixins.includes(Overlay);
+        } else {
+            return false;
+        }
     }),
 
     options:  null,
     'on-close': () => {},
 
 }).reopenClass({
-    positionalParams: ['modalName', 'options'],
+    positionalParams: ['modalName', 'options', 'uuid'],
 });

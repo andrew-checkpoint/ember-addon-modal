@@ -9,8 +9,8 @@ export default Component.extend({
     modalManager: service(),
     modalInstances: alias('modalManager.instances'),
     actions: {
-        modalClosed: function(modalInstance){
-            this.modalManager.removeInstance(modalInstance);
+        modalClosed: function(modalInstance, reason){
+            this.modalManager.removeInstance(modalInstance, null, null, reason);
         }
     }
 });

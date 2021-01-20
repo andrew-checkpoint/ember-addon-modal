@@ -1,6 +1,7 @@
 {{#if isModal}}
     {{component modalName
         modalOptions=options
+        modalId=uuid
         autoOpen=true
         on-close=on-close
     }}
@@ -8,6 +9,7 @@
     {{#dialog-wrapper on-close=on-close autoOpen=true}}
         {{component modalName
             modalOptions=options
+            modalId=uuid
         }}
     {{/dialog-wrapper}}
 {{/if}}

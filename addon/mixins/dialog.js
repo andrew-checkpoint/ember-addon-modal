@@ -5,6 +5,12 @@ import ModalAttrs from './modal-attrs';
 import ModalInstance from '../components/modal-instance';
 import options from '../index';
 
+import {
+    CLOSE_REASON_BACKGROUND,
+    CLOSE_REASON_ESCAPE,
+    CLOSE_REASON_SERVICE,
+} from '../enum';
+
 export const checkTargetAndElementCoords = ({ element, event }) => {
     const el = element?.getBoundingClientRect();
     const elTop = el?.top;
@@ -29,6 +35,7 @@ export const Dialog = Mixin.create(ModalAttrs, {
 
     show: true,
     autoOpen: false,
+    isModalMixin: true,
 
     didInsertElement: function() {
         let sup = this._super(...arguments);
@@ -56,7 +63,7 @@ export const Dialog = Mixin.create(ModalAttrs, {
         });
 
         if (!isInDialog) {
-            this.closeModal();
+            this.closeModal(CLOSE_REASON_BACKGROUND);
         }
     }
 });
@@ -68,6 +75,7 @@ export const Modal = Mixin.create(ModalAttrs, {
 
     show: false,
     autoOpen: false,
+    isModalMixin: true,
 
     init() {
         this._super(...arguments);
@@ -96,9 +104,9 @@ export const Modal = Mixin.create(ModalAttrs, {
         this.set('show', true);
     },
 
-    closeModal: function() {
+    closeModal: function(reason) {
         this.set('show', false);
-        this['on-close']();
+        this['on-close'](reason);
     },
 
     bindEvents() {
@@ -125,13 +133,13 @@ export const Modal = Mixin.create(ModalAttrs, {
         }
 
         if (!isInDialog) {
-            this.closeModal();
+            this.closeModal(CLOSE_REASON_BACKGROUND);
         }
     },
 
     escKeyClose(evt) {
         if (evt.key === 'Escape') {
-            this.closeModal();
+            this.closeModal(CLOSE_REASON_ESCAPE);
         }
     },
 });
